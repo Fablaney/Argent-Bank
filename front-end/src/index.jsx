@@ -10,7 +10,6 @@ import './index.scss'
 // pages
 import Accueil from './pages/Accueil'
 import Login from "./pages/Login"
-import Register from './pages/Register'
 import Profil from './pages/Profil'
 import Transactions from './pages/Transactions'
 import Error from './pages/Error'
@@ -35,7 +34,6 @@ root.render(
             <Route path="/" element={<Accueil />} />
 
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
 
             <Route path="/profil" element={<Profil />} />
 
