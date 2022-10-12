@@ -1,16 +1,9 @@
 // import react
 import React from 'react'
-// import { useEffect } from 'react'
-// import { useState } from 'react'
 import { Link, Navigate } from "react-router-dom"
-// import { useSelector, useDispatch } from 'react-redux'
 
 // import perso
 import "./style.scss"
-// import Loader from "../../components/Loader"
-
-// import authService from '../../features/auth/authService'
-// import { editUser, setProfile } from '../../features/auth/authSlice'
 
 /**
  * Render of Profil page
@@ -20,51 +13,7 @@ import "./style.scss"
  */
 function Profil()
 {
-    // const dispatch = useDispatch()
 
-    // useEffect( () => {
-
-    //     authService.getProfil().then((data) => {
-    //         console.log(data)
-    //         dispatch(setProfile(data))
-    //     })
-
-    // }, [])
-
-    // const { user: currentUser } = useSelector((state) => state.auth)
-    // // const { user: currentUser } = useSelector((state) => state.user)
-
-    // const [formData, setFormData] = useState({
-    //     firstName: currentUser.firstName,
-    //     lastName: currentUser.lastName,
-    // })
-
-    // const { firstName, lastName } = formData
-
-    // // console.log(formData)
-
-    // function onSubmit(e)
-    // {
-    //     e.preventDefault()
-
-    //     const userData = {firstName,lastName}
-
-    //     dispatch(editUser(userData))
-    // }
-
-    // function onChange(e)
-    // {
-    //     setFormData((prevState) => ({
-    //         ...prevState,
-    //         [e.target.name]: e.target.value
-    //     }))
-    // }
-
-    // if (!currentUser)
-    // {
-    //     return <Navigate to="/login" />;
-    // }
-    
     // if (isLoading === true)
     // {
     //     return (
@@ -82,6 +31,8 @@ function Profil()
                     <h1>
                         Welcome back
                         <br/>
+                        "nom dynamique"
+                        "prenom dynamique"
                         {/* {currentUser.firstName} {currentUser.lastName} */}
                     </h1>
 

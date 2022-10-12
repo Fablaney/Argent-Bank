@@ -1,12 +1,15 @@
 import { useState } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 
 // import perso
 import "./style.scss"
 
 function Login()
 {
-    const [userEmail, setUserEmail] = useState();
-    const [userPassword, setPassword] = useState();
+    let navigate = useNavigate()
+
+    const [userEmail, setUserEmail] = useState()
+    const [userPassword, setPassword] = useState()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -16,7 +19,12 @@ function Login()
 
         try
         {
-          
+            if(userEmail && userPassword)
+            {
+                return (
+                    navigate("/profil")
+                ) 
+            }
         }
         catch(error)
         {

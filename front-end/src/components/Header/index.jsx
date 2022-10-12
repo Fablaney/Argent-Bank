@@ -34,12 +34,10 @@ function Header()
                 <div className="navbar-nav ml-auto">
 
                     <li className="nav-item">
-                        <button className="btn"
-                            // onClick={onLogout}
-                        >
+                        <NavLink to={"/"} className="nav-link">
                             <FaSignOutAlt/>
                             Logout
-                        </button>
+                        </NavLink>
                     </li>
         
                     <li className="nav-item">
