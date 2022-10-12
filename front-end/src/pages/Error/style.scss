@@ -1,0 +1,32 @@
+.error-number
+{
+    font-size: 200px;
+    margin-bottom: 66px;
+
+    @media (max-width: 768px)
+    {
+        font-size: 96px;
+        margin-bottom: 10px;
+    }
+}
+.error-title
+{
+    font-size: 36px;
+    margin-bottom: 182px;
+
+    @media (max-width: 768px)
+    {
+        font-size: 18px;
+        margin-bottom: 133px;
+    }
+}
+.error-link
+{
+    font-size: 20px;
+    padding-bottom: 29px;
+
+    @media (max-width: 768px)
+    {
+        font-size: 14px;
+    }
+}
