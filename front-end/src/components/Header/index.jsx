@@ -18,7 +18,6 @@ import "./style.scss"
 function Header()
 {
     return (
-
         <header className='d-flex align-items-center'>
          
             <nav className="main-nav">
