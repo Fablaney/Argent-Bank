@@ -1,12 +1,11 @@
 import React, { createContext } from "react"
 import { useState } from "react"
-import { useContext } from "react"
 
 const MainContext = createContext()
 
-function mainContextProvider({children})
+function MainContextProvider({children})
 {
-    const [jwt, setJwt] = useState("")
+    const [jwt, setJwt] = useState(' ')
 
     return (
         <MainContext.Provider value={{jwt, setJwt}}>
@@ -14,4 +13,4 @@ function mainContextProvider({children})
         </MainContext.Provider> 
     )
 }
-export default {mainContextProvider, MainContext}
+export { MainContextProvider, MainContext }

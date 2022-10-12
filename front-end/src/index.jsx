@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
 
 // import perso
 import './index.scss'
-
+import { MainContextProvider } from './contexts/MainContext'
 
 // pages
 import Accueil from './pages/Accueil'
@@ -25,26 +25,28 @@ import Footer from "./components/Footer"
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(
-    <Router>
-        
-        <Header/>
+    <MainContextProvider>
+        <Router>
+            
+            <Header/>
 
-        <Routes>
+            <Routes>
 
-            <Route path="/" element={<Accueil />} />
+                <Route path="/" element={<Accueil />} />
 
-            <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login />} />
 
-            <Route path="/profil" element={<Profil />} />
+                <Route path="/profil" element={<Profil />} />
 
-            <Route path="/transactions" element={<Transactions />} />
+                <Route path="/transactions" element={<Transactions />} />
 
-            {/* page d'erreur */}
-            <Route path="/*" element={<Error/>}/>
+                {/* page d'erreur */}
+                <Route path="/*" element={<Error/>}/>
 
-        </Routes>
+            </Routes>
 
-        <Footer/>
+            <Footer/>
 
-    </Router>
+        </Router>
+    </MainContextProvider>
 )
