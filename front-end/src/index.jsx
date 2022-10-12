@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
 
 // import perso
 import './index.scss'
-import { MainContextProvider } from './contexts/MainContext'
 
 // pages
 import Accueil from './pages/Accueil'
@@ -25,7 +24,7 @@ import Footer from "./components/Footer"
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(
-    <MainContextProvider>
+
         <Router>
             
             <Header/>
@@ -48,5 +47,5 @@ root.render(
             <Footer/>
 
         </Router>
-    </MainContextProvider>
+
 )

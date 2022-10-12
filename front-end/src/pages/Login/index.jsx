@@ -1,5 +1,7 @@
+import React from "react";
 import { useState } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
 
 // import perso
 import "./style.scss"
