@@ -13,6 +13,25 @@ const accueil_data = [
     },
 ]
 
+const transactions_data = [
+    {
+        title: "Argent Bank Checking (x8349)",
+        count: "$2,082.79",
+        text: "Available Balance",
+    },
+    {
+        title: "Argent Bank Savings (x6712)",
+        count: "$10,928.42",
+        text: "Available Balance",
+    },
+    {
+        title: "Argent Bank Credit Card (x8349)",
+        count: "$184.30",
+        text: "Current Balance",
+    },
+]
+
 module.exports = {
     accueil_data,
+    transactions_data
 }
