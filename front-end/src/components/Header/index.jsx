@@ -1,12 +1,13 @@
 // import react
 import React from "react"
 import { NavLink } from "react-router-dom"
-import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { useSelector, useDispatch } from "react-redux"
+import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa'
 
 // import perso
 import logo from "../../designs/img/argentBankLogo.png"
 import "./style.scss"
-
+import { userActions } from "../../store/user"
 
 /**
  * @component
@@ -17,6 +18,18 @@ import "./style.scss"
  */
 function Header()
 {
+    const user = useSelector(state => state.user)
+
+    const dispatch = useDispatch()
+
+    const handleLogout = async (e) => {
+
+        // On appelle la fonction du reducer "logout" qui passera les données user à null
+        dispatch(userActions.logout())
+  
+        console.log("on deconnecte et retour à la page d'accueil")
+    }
+
     return (
         <header className='d-flex align-items-center'>
          
@@ -33,17 +46,23 @@ function Header()
                 <div className="navbar-nav ml-auto">
 
                     <li className="nav-item">
-                        <NavLink to={"/"} className="nav-link">
-                            <FaSignOutAlt/>
-                            Logout
-                        </NavLink>
-                    </li>
-        
-                    <li className="nav-item">
-                        <NavLink to={"/login"} className="nav-link">
-                            <FaSignInAlt/>
-                            Login
-                        </NavLink>
+                    {
+                        // selon si on à un user connecté on affiche l'onglet logout ou login
+                        user.id != null ? 
+                        ( 
+                            <NavLink to={"/"} className="nav-link" onClick={handleLogout}>
+                                <FaSignOutAlt/>
+                                Logout
+                            </NavLink>
+                        )
+                        :
+                        (
+                            <NavLink to={"/login"} className="nav-link">
+                                <FaSignInAlt/>
+                                Login
+                            </NavLink>
+                        )
+                    }
                     </li>
 
                 </div>

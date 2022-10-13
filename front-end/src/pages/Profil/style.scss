@@ -1,3 +1,11 @@
+.header-edit
+{
+    margin-bottom: 3em;
+}
+.d-none
+{
+    display: none;
+}
 .account
 {
     display: flex;
@@ -101,8 +109,4 @@
     border-radius: 5px;
     color: rgb(160, 60, 160);
     font-weight: bold;
-}
-.d-none
-{
-    display: none;
 }

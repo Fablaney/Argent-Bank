@@ -18,6 +18,11 @@ const userSlice = createSlice({
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName
         },
+        updateUser(state, action)
+        {
+            state.firstName = action.payload.firstName
+            state.lastName = action.payload.lastName
+        },
         logout(state)
         {
             state.id = null

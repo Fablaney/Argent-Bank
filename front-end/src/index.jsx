@@ -2,9 +2,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import { Provider } from 'react-redux'
 
 // import perso
 import './index.scss'
+import store from './store'
 
 // pages
 import Accueil from './pages/Accueil'
@@ -17,8 +19,7 @@ import Error from './pages/Error'
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 
-import store from './store'
-import { Provider } from 'react-redux'
+
 
 /**
  * Router his job is send the good page whith the URL, or 404 if page not found

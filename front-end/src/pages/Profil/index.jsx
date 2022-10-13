@@ -1,11 +1,16 @@
 // import react
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link, useNavigate } from "react-router-dom"
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from "react-router-dom"
+
+// axios
+import axios from 'axios'
 
 // import perso
 import "./style.scss"
+import TransactionWrapper from '../../components/TransactionWrapper'
+import { userActions } from '../../store/user'
 
 /**
  * Render of Profil page
@@ -16,18 +21,62 @@ import "./style.scss"
 function Profil()
 {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const user = useSelector(state => state.user)
-    console.log(user)
+    // console.log(user)
 
     useEffect(() => {
         if (user.id == null)
         {
             navigate("/login")
         }
-
-        
     },[])
+
+    const [updateFirstName, setUpdateFirstName] = useState()
+    const [updateLastName, setUpdateLastName] = useState()
+
+    // on recupere le form quand il est envoyé
+    const updateSubmit = async (e) => {
+        e.preventDefault()
+
+        // requete post pour envoyer le mail et mdp
+        axios.post("http://localhost:3001/api/v1/user/profile", {
+            // l'api attend un firstname et lastname on lui passe ceux des champs du formulaire
+            firstName: updateFirstName, lastName: updateLastName
+
+        }).then(response => {
+            // console.log(response.data)
+
+            // modifie les autorisations avec le token
+            axios.defaults.headers["Authorization"] = `Bearer ${response.data.body.token}`
+
+            // on met le token en localstorage
+            localStorage.token = response.data.body.token
+
+      
+            // on appelle la fonction "login" le l'user reducer
+            dispatch(userActions.updateUser(response.data.body))
+
+            // console.log("on est connecté")
+        })
+    }
+
+    async function toogleform()
+    {
+        document.querySelector(".edit-button").addEventListener("click", () => {
+            console.log("toogle open edit")
+            document.querySelector(".header").classList.add("d-none")
+            document.querySelector(".header-edit").classList.remove("d-none")
+        })
+            
+        document.querySelector(".save-button").addEventListener("click", () => {
+            console.log("toogle close edit")
+            document.querySelector(".header").classList.remove("d-none")
+            document.querySelector(".header-edit").classList.add("d-none")
+        })   
+    }
+    toogleform()
 
     return (
         <main className="main bg-dark">
@@ -45,10 +94,10 @@ function Profil()
 
             </div>
 
-            <div className="header-edit">
+            <div className="header-edit d-none">
 
                 <form className="edit-user-form"
-                    // onSubmit={onSubmit}
+                    onSubmit={updateSubmit}
                 >
 
                     <div className='edit-user-form-imputs'>
@@ -57,16 +106,16 @@ function Profil()
                             type="text"
                             name="firstName"
                             // value={firstName}
-                            // placeholder={currentUser.firstName}
-                            // onChange={onChange}
+                            placeholder={user.firstName}
+                            onChange={e => setUpdateFirstName(e.target.value)}
                         />
 
                         <input
                             type="text"
                             name="lastName"
                             // value={lastName}
-                            // placeholder={currentUser.lastName}
-                            // onChange={onChange}
+                            placeholder={user.lastName}
+                            onChange={e => setUpdateLastName(e.target.value)}
                         />
 
                     </div>
@@ -80,71 +129,10 @@ function Profil()
                 
             </div>
 
-            {/* {
-                document.querySelector(".edit-button").addEventListener("click", () => {
-                    console.log("click")
-                    document.querySelector(".header").classList.add("d-none")
-                    document.querySelector(".header-edit").classList.remove("d-none")
-                })
-            }
-            {
-                document.querySelector(".save-button").addEventListener("click", () => {
-                    console.log("click")
-                    document.querySelector(".header").classList.remove("d-none")
-                    document.querySelector(".header-edit").classList.add("d-none")
-                })
-            } */}
-
             <h2 className="sr-only">Accounts</h2>
 
-            <section className="account">
-
-                <div className="account-content-wrapper">
-                    <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-                    <p className="account-amount">$2,082.79</p>
-                    <p className="account-amount-description">Available Balance</p>
-                </div>
-
-                <div className="account-content-wrapper cta">
-                    <Link className="main-nav-item" to="/transactions">
-                        <button className="transaction-button">View transactions</button>
-                    </Link>
-                </div>
-
-            </section>
-
-            <section className="account">
-
-                <div className="account-content-wrapper">
-                    <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-                    <p className="account-amount">$10,928.42</p>
-                    <p className="account-amount-description">Available Balance</p>
-                </div>
-
-                <div className="account-content-wrapper cta">
-                    
-                    <Link className="main-nav-item" to="/transactions">
-                        <button className="transaction-button">View transactions</button>
-                    </Link>
-                </div>
-
-            </section>
-
-            <section className="account">
-
-                <div className="account-content-wrapper">
-                    <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-                    <p className="account-amount">$184.30</p>
-                    <p className="account-amount-description">Current Balance</p>
-                </div>
-
-                <div className="account-content-wrapper cta">
-                    <Link className="main-nav-item" to="/transactions">
-                        <button className="transaction-button">View transactions</button>
-                    </Link>
-                </div>
-
-            </section>
+            {/* datas mockées */}
+            <TransactionWrapper/>
 
         </main>
     )

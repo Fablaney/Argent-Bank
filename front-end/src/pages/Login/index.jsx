@@ -1,34 +1,33 @@
 import React from "react";
 import { useState } from "react"
-import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux";
 import axios from "axios";
 
-import { userActions } from "../../store/user"
-import { useDispatch } from "react-redux";
 // import perso
 import "./style.scss"
+import { userActions } from "../../store/user"
 
 function Login()
 {
-
     // const ApiUrl = "http://localhost:3001/api/v1/"
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [userEmail, setUserEmail] = useState()
     const [userPassword, setPassword] = useState()
 
-    const dispatch = useDispatch()
-
+    // on recupere le form quand il est envoyé
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         // requete post pour envoyer le mail et mdp
         axios.post("http://localhost:3001/api/v1/user/login", {
+            // l'api attend un email et un password on lui passe ceux des champs du formulaire
             email: userEmail, password: userPassword
         }).then(response => {
-            console.log(response.data)
+            // console.log(response.data)
 
             // modifie les autorisations avec le token
             axios.defaults.headers["Authorization"] = `Bearer ${response.data.body.token}`
@@ -38,16 +37,17 @@ function Login()
 
             // requete pour récuperer les données de l'utilisateur
             axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
-                console.log(response.data)
+                // console.log(response.data)
 
+                // on appelle la fonction "login" le l'user reducer
                 dispatch(userActions.login(response.data.body))
 
+                console.log("on est connecté")
+
+                // on redirige sur la page profil
                 navigate("/profil")
             })
         })
-
-        console.log("mail et mdp")
-        console.log(userEmail, userPassword)
     }
  
     return (
