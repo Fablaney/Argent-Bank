@@ -64,17 +64,24 @@ function Profil()
 
     async function toogleform()
     {
+        // on fait apparaitre le form pour update l'user
         document.querySelector(".edit-button").addEventListener("click", () => {
             console.log("toogle open edit")
             document.querySelector(".header").classList.add("d-none")
             document.querySelector(".header-edit").classList.remove("d-none")
         })
-            
+        // on ferme le form pour update l'user et on envoie les nouvelles données
         document.querySelector(".save-button").addEventListener("click", () => {
             console.log("toogle close edit")
             document.querySelector(".header").classList.remove("d-none")
             document.querySelector(".header-edit").classList.add("d-none")
-        })   
+        })
+        // on ferme le form pour update l'user
+        document.querySelector(".cancel-button").addEventListener("click", () => {
+            console.log("toogle close edit")
+            document.querySelector(".header").classList.remove("d-none")
+            document.querySelector(".header-edit").classList.add("d-none")
+        })  
     }
     toogleform()
 
@@ -105,7 +112,7 @@ function Profil()
                         <input
                             type="text"
                             name="firstName"
-                            // value={firstName}
+                            // value={user.firstName}
                             placeholder={user.firstName}
                             onChange={e => setUpdateFirstName(e.target.value)}
                         />
@@ -113,7 +120,7 @@ function Profil()
                         <input
                             type="text"
                             name="lastName"
-                            // value={lastName}
+                            // value={user.lastName}
                             placeholder={user.lastName}
                             onChange={e => setUpdateLastName(e.target.value)}
                         />
