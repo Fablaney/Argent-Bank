@@ -2,36 +2,52 @@ import React from "react";
 import { useState } from "react"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
+import axios from "axios";
 
+import { userActions } from "../../store/user"
+import { useDispatch } from "react-redux";
 // import perso
 import "./style.scss"
 
 function Login()
 {
-    let navigate = useNavigate()
+
+    // const ApiUrl = "http://localhost:3001/api/v1/"
+
+    const navigate = useNavigate()
 
     const [userEmail, setUserEmail] = useState()
     const [userPassword, setPassword] = useState()
 
+    const dispatch = useDispatch()
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        // requete post pour envoyer le mail et mdp
+        axios.post("http://localhost:3001/api/v1/user/login", {
+            email: userEmail, password: userPassword
+        }).then(response => {
+            console.log(response.data)
+
+            // modifie les autorisations avec le token
+            axios.defaults.headers["Authorization"] = `Bearer ${response.data.body.token}`
+
+            // on met le token en localstorage
+            localStorage.token = response.data.body.token
+
+            // requete pour récuperer les données de l'utilisateur
+            axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
+                console.log(response.data)
+
+                dispatch(userActions.login(response.data.body))
+
+                navigate("/profil")
+            })
+        })
+
         console.log("mail et mdp")
         console.log(userEmail, userPassword)
-
-        try
-        {
-            if(userEmail && userPassword)
-            {
-                return (
-                    navigate("/profil")
-                ) 
-            }
-        }
-        catch(error)
-        {
-           
-        }
     }
  
     return (

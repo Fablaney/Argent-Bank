@@ -17,6 +17,8 @@ import Error from './pages/Error'
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 
+import store from './store'
+import { Provider } from 'react-redux'
 
 /**
  * Router his job is send the good page whith the URL, or 404 if page not found
@@ -24,6 +26,7 @@ import Footer from "./components/Footer"
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(
+    <Provider store={store}>
 
         <Router>
             
@@ -47,5 +50,6 @@ root.render(
             <Footer/>
 
         </Router>
-
+        
+    </Provider>
 )
