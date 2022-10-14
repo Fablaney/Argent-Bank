@@ -26,44 +26,17 @@ function Profil()
     const user = useSelector(state => state.user)
     // console.log(user)
 
+    const userFromSessionStorage = sessionStorage.getItem("userSession")
+    console.log(userFromSessionStorage)
+    
     useEffect(() => {
+        // si on à pas d'utilisateur on redirige sur login
         if (user.id == null)
         {
             navigate("/login")
         }
-    },[])
 
-    const [updateFirstName, setUpdateFirstName] = useState()
-    const [updateLastName, setUpdateLastName] = useState()
-
-    // on recupere le form quand il est envoyé
-    const updateSubmit = async (e) => {
-        e.preventDefault()
-
-        // requete post pour envoyer le mail et mdp
-        axios.post("http://localhost:3001/api/v1/user/profile", {
-            // l'api attend un firstname et lastname on lui passe ceux des champs du formulaire
-            firstName: updateFirstName, lastName: updateLastName
-
-        }).then(response => {
-            // console.log(response.data)
-
-            // modifie les autorisations avec le token
-            axios.defaults.headers["Authorization"] = `Bearer ${response.data.body.token}`
-
-            // on met le token en localstorage
-            localStorage.token = response.data.body.token
-
-      
-            // on appelle la fonction "login" le l'user reducer
-            dispatch(userActions.updateUser(response.data.body))
-
-            // console.log("on est connecté")
-        })
-    }
-
-    async function toogleform()
-    {
+        
         // on fait apparaitre le form pour update l'user
         document.querySelector(".edit-button").addEventListener("click", () => {
             console.log("toogle open edit")
@@ -81,9 +54,38 @@ function Profil()
             console.log("toogle close edit")
             document.querySelector(".header").classList.remove("d-none")
             document.querySelector(".header-edit").classList.add("d-none")
-        })  
+        })
+
+    },[])
+
+    const [updateFirstName, setUpdateFirstName] = useState()
+    const [updateLastName, setUpdateLastName] = useState()
+
+    // on recupere le form quand il est envoyé
+    const updateSubmit = async (e) => {
+        e.preventDefault()
+
+
+        // requete post pour envoyer le mail et mdp
+        axios.put("http://localhost:3001/api/v1/user/profile", {
+            // l'api attend un firstname et lastname on lui passe ceux des champs du formulaire
+            firstName: updateFirstName, lastName: updateLastName
+
+        }).then(response => {
+            // console.log(response.data)
+
+            // modifie les autorisations avec le token
+            axios.defaults.headers["Authorization"] = `Bearer ${response.data.body.token}`
+
+            // on met le token en localstorage
+            localStorage.token = response.data.body.token
+
+            // on appelle la fonction "login" le l'user reducer
+            dispatch(userActions.updateUser(response.data.body))
+
+            // console.log("on est connecté")
+        })
     }
-    toogleform()
 
     return (
         <main className="main bg-dark">

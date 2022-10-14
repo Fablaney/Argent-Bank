@@ -44,6 +44,9 @@ function Login()
 
                 console.log("on est connecté")
 
+                sessionStorage.setItem("userSession", response.data.body)
+                // console.log(response.data.body)
+
                 // on redirige sur la page profil
                 navigate("/profil")
             })
