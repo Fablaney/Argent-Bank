@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react"
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux";
+import { useDispatch, useStore } from "react-redux";
 import axios from "axios";
 
 // import perso
@@ -44,7 +45,7 @@ function Login()
 
                 console.log("on est connecté")
 
-                sessionStorage.setItem("userSession", response.data.body)
+                sessionStorage.setItem("userSession", JSON.stringify(response.data.body) )
                 // console.log(response.data.body)
 
                 // on redirige sur la page profil
@@ -52,7 +53,34 @@ function Login()
             })
         })
     }
- 
+
+    const [user, setUser] = useState()
+
+    useEffect(() => {
+
+        console.log("on entre dans le useeffect")
+
+        const loggedInUser = sessionStorage.getItem("userSession")
+
+        if (loggedInUser)
+        {
+            console.log("on trouve un user")
+            const foundUser = JSON.parse(loggedInUser)
+            console.log(foundUser)
+            setUser(foundUser)
+
+            if(!foundUser == null)
+            {
+                navigate("/profil")
+            }
+        }
+        else
+        {
+            console.log("on trouve pas d'user")
+        }
+
+      }, [])
+
     return (
         <main className="main bg-dark login">
 

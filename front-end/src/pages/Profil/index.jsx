@@ -26,8 +26,10 @@ function Profil()
     const user = useSelector(state => state.user)
     // console.log(user)
 
+    // je récupere l'user enregistré en local session
     const userFromSessionStorage = sessionStorage.getItem("userSession")
-    console.log(userFromSessionStorage)
+    // console.log(userFromSessionStorage)
+    // console.log(userFromSessionStorage.id)
     
     useEffect(() => {
         // si on à pas d'utilisateur on redirige sur login
@@ -36,7 +38,6 @@ function Profil()
             navigate("/login")
         }
 
-        
         // on fait apparaitre le form pour update l'user
         document.querySelector(".edit-button").addEventListener("click", () => {
             console.log("toogle open edit")
@@ -64,7 +65,6 @@ function Profil()
     // on recupere le form quand il est envoyé
     const updateSubmit = async (e) => {
         e.preventDefault()
-
 
         // requete post pour envoyer le mail et mdp
         axios.put("http://localhost:3001/api/v1/user/profile", {
@@ -114,7 +114,7 @@ function Profil()
                         <input
                             type="text"
                             name="firstName"
-                            // value={user.firstName}
+                            defaultValue={user.firstName}
                             placeholder={user.firstName}
                             onChange={e => setUpdateFirstName(e.target.value)}
                         />
@@ -122,7 +122,7 @@ function Profil()
                         <input
                             type="text"
                             name="lastName"
-                            // value={user.lastName}
+                            defaultValue={user.lastName}
                             placeholder={user.lastName}
                             onChange={e => setUpdateLastName(e.target.value)}
                         />
