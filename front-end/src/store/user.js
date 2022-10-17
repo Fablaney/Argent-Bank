@@ -1,11 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+const token = localStorage.getItem("userToken") ? localStorage.getItem("userToken") : null
+
 const initialState = {
     id: null, 
     email: null,
     firstName: null,
     lastName: null,
     isLogged: false,
+    token,
+    isEditing: false,
 }
 
 const userSlice = createSlice({
@@ -19,11 +23,13 @@ const userSlice = createSlice({
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName
             state.isLogged = true
+            state.token = token
         },
         updateUser(state, action)
         {
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName
+            state.isEditing = false
         },
         logout(state)
         {
@@ -32,6 +38,15 @@ const userSlice = createSlice({
             state.firstName = null
             state.lastName = null
             state.isLogged = false
+            localStorage.removeItem("userToken")
+        },
+        isEdit(state)
+        {
+            state.isEditing = true
+        },
+        isCancel(state)
+        {
+            state.isEditing = false
         }
     }
 })

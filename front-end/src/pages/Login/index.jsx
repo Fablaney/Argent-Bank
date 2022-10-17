@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 import { useState } from "react"
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
-import { useDispatch, useStore } from "react-redux";
-import axios from "axios";
+import { useDispatch, useStore } from "react-redux"
+
+import axios from "axios"
 
 // import perso
 import "./style.scss"
@@ -34,7 +34,8 @@ function Login()
             axios.defaults.headers["Authorization"] = `Bearer ${response.data.body.token}`
 
             // on met le token en localstorage
-            localStorage.token = response.data.body.token
+            // localStorage.token = response.data.body.token
+            localStorage.setItem("userToken", response.data.body.token)                
 
             // requete pour récuperer les données de l'utilisateur
             axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
@@ -45,43 +46,11 @@ function Login()
 
                 console.log("on est connecté")
 
-                sessionStorage.setItem("userSession", JSON.stringify(response.data.body) )
-                // console.log(response.data.body)
-
                 // on redirige sur la page profil
                 navigate("/profil")
             })
         })
     }
-
-    const [user, setUser] = useState()
-
-    useEffect(() => {
-
-        console.log("on entre dans le useeffect")
-
-        const loggedInUser = sessionStorage.getItem("userSession")
-
-        // console.log(loggedInUser.id)
-
-        if (loggedInUser)
-        {
-            console.log("on trouve un user")
-            const foundUser = JSON.parse(loggedInUser)
-            console.log(foundUser)
-            setUser(foundUser)
-
-            if(!foundUser == null)
-            {
-                navigate("/profil")
-            }
-        }
-        else
-        {
-            console.log("on trouve pas d'user")
-        }
-
-      }, [])
 
     return (
         <main className="main bg-dark login">

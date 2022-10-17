@@ -25,48 +25,57 @@ function Profil()
 
     const user = useSelector(state => state.user)
 
-    // const isLog = useSelector(state => state.user.isLogged)
-    // console.log(isLog)
+    let token = localStorage.getItem("userToken")
 
-    // je récupere l'user enregistré en local session
-    const userFromSessionStorage = sessionStorage.getItem("userSession")
-    // console.log(userFromSessionStorage)
-    // console.log(userFromSessionStorage.id)
-    
     useEffect(() => {
         // si on à pas d'utilisateur on redirige sur login
-        if (user.id == null)
+        // if (user.id == null)
+        // {
+        //     navigate("/login")
+        // }
+        if (token == null)
         {
             navigate("/login")
         }
 
-        // on fait apparaitre le form pour update l'user
-        document.querySelector(".edit-button").addEventListener("click", () => {
-            console.log("toogle open edit")
-            document.querySelector(".header").classList.add("d-none")
-            document.querySelector(".header-edit").classList.remove("d-none")
-        })
-        // on ferme le form pour update l'user et on envoie les nouvelles données
-        document.querySelector(".save-button").addEventListener("click", () => {
-            console.log("toogle close edit")
-            document.querySelector(".header").classList.remove("d-none")
-            document.querySelector(".header-edit").classList.add("d-none")
-        })
-        // on ferme le form pour update l'user
-        document.querySelector(".cancel-button").addEventListener("click", () => {
-            console.log("toogle close edit")
-            document.querySelector(".header").classList.remove("d-none")
-            document.querySelector(".header-edit").classList.add("d-none")
-        })
+        if(token)
+        {
+            axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
 
-    },[])
+                // on appelle la fonction "login" le l'user reducer
+                dispatch(userActions.login(response.data.body))
+            })
+        }
+
+    },[token])
 
     const [updateFirstName, setUpdateFirstName] = useState()
     const [updateLastName, setUpdateLastName] = useState()
 
+    const newuser = (newFirstname, defaultFirstName, newLastName, defaultLastName) => {
+        if (newFirstname != defaultFirstName)
+        {
+            return newuser
+        }
+        if (newLastName != defaultLastName)
+        {
+            return newuser
+        }
+        if(newFirstname === defaultFirstName)
+        {
+            return defaultFirstName
+        }  
+        if(newFirstname === defaultFirstName)
+        {
+            return defaultFirstName
+        }
+    }
+
     // on recupere le form quand il est envoyé
     const updateSubmit = async (e) => {
         e.preventDefault()
+
+        newuser(updateFirstName, user.firstName, updateLastName, user.lastName)
 
         // requete post pour envoyer le mail et mdp
         axios.put("http://localhost:3001/api/v1/user/profile", {
@@ -82,63 +91,70 @@ function Profil()
             // on met le token en localstorage
             localStorage.token = response.data.body.token
 
-            // on appelle la fonction "login" le l'user reducer
+            // on appelle la fonction "updateUser" le l'user reducer
             dispatch(userActions.updateUser(response.data.body))
-
-            // console.log("on est connecté")
         })
     }
 
     return (
         <main className="main bg-dark">
 
-            <div className="header">
+            {   
+                // par défaut le header simple avec le bouton edit
+                user.isEditing == false ?
+                (
+                    <div className="header">
 
-                <h1>
-                    Welcome back
-                    <br/>
-                    
-                    {user.firstName} {user.lastName}
-                </h1>
-
-                <button className="edit-button">Edit Name</button>
-
-            </div>
-
-            <div className="header-edit d-none">
-
-                <form className="edit-user-form"
-                    onSubmit={updateSubmit}
-                >
-
-                    <div className='edit-user-form-imputs'>
-
-                        <input
-                            type="text"
-                            name="firstName"
-                            defaultValue={user.firstName}
-                            placeholder={user.firstName}
-                            onChange={e => setUpdateFirstName(e.target.value)}
-                        />
-
-                        <input
-                            type="text"
-                            name="lastName"
-                            defaultValue={user.lastName}
-                            placeholder={user.lastName}
-                            onChange={e => setUpdateLastName(e.target.value)}
-                        />
-
+                        <h1>
+                            Welcome back
+                            <br/>
+                            
+                            {user.firstName} {user.lastName}
+                        </h1>
+        
+                        <button className="edit-button" onClick={() => dispatch(userActions.isEdit())}>Edit Name</button>
+        
                     </div>
+                )
+                :
+                (
+                    // si on à cliqué sur edit pour modifier le nom et prenom de l'utilisateur
+                    <div className="header-edit">
+
+                        <form className="edit-user-form"
+                            onSubmit={updateSubmit}
+                        >
+        
+                            <div className='edit-user-form-imputs'>
+        
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    defaultValue={user.firstName}
+                                    placeholder={user.firstName}
+                                    onChange={e => setUpdateFirstName(e.target.value)}
+                                />
+        
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    defaultValue={user.lastName}
+                                    placeholder={user.lastName}
+                                    onChange={e => setUpdateLastName(e.target.value)}
+                                />
+        
+                            </div>
+                            
+                            <div className='edit-user-form-buttons'>
+                                <button type="submit" className="save-button">Save</button>
+                                <button className="cancel-button" onClick={() => dispatch(userActions.isCancel())}>Cancel</button>
+                            </div>
+                            
+                        </form>
                     
-                    <div className='edit-user-form-buttons'>
-                        <button type="submit" className="save-button">Save</button>
-                        <button className="cancel-button">Cancel</button>
                     </div>
-                    
-                </form>
-                
-            </div>
+                )
+            }
 
             <h2 className="sr-only">Accounts</h2>
 
