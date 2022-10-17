@@ -24,7 +24,9 @@ function Profil()
     const dispatch = useDispatch()
 
     const user = useSelector(state => state.user)
-    // console.log(user)
+
+    // const isLog = useSelector(state => state.user.isLogged)
+    // console.log(isLog)
 
     // je récupere l'user enregistré en local session
     const userFromSessionStorage = sessionStorage.getItem("userSession")

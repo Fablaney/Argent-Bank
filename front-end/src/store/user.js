@@ -4,7 +4,8 @@ const initialState = {
     id: null, 
     email: null,
     firstName: null,
-    lastName: null  
+    lastName: null,
+    isLogged: false,
 }
 
 const userSlice = createSlice({
@@ -17,6 +18,7 @@ const userSlice = createSlice({
             state.email = action.payload.email
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName
+            state.isLogged = true
         },
         updateUser(state, action)
         {
@@ -29,6 +31,7 @@ const userSlice = createSlice({
             state.email = null
             state.firstName = null
             state.lastName = null
+            state.isLogged = false
         }
     }
 })

@@ -42,15 +42,11 @@
 {
     display: flex;
 
-    li
+    a
     {
-        text-decoration: none;
-        list-style: none;
         padding: 0 2em;
-
-        a
-        {
-            text-decoration: none;
-        }
+        text-decoration: none;
+        display: flex;
+        align-items: center;
     }
 }

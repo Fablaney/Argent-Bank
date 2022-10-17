@@ -2,7 +2,7 @@
 import React from "react"
 import { NavLink } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa'
+import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
 
 // import perso
 import logo from "../../designs/img/argentBankLogo.png"
@@ -45,15 +45,21 @@ function Header()
 
                 <div className="navbar-nav ml-auto">
 
-                    <li className="nav-item">
+                    {/* <li className="nav-item"> */}
                     {
                         // selon si on à un user connecté on affiche l'onglet logout ou login
                         user.id != null ? 
                         ( 
+                            <>
+                            <NavLink to={"/profil"} className="nav-link">
+                                <FaUser/>
+                                Profil
+                            </NavLink>
                             <NavLink to={"/"} className="nav-link" onClick={handleLogout}>
                                 <FaSignOutAlt/>
                                 Logout
                             </NavLink>
+                            </>
                         )
                         :
                         (
@@ -63,7 +69,7 @@ function Header()
                             </NavLink>
                         )
                     }
-                    </li>
+                    {/* </li> */}
 
                 </div>
     

@@ -62,6 +62,8 @@ function Login()
 
         const loggedInUser = sessionStorage.getItem("userSession")
 
+        // console.log(loggedInUser.id)
+
         if (loggedInUser)
         {
             console.log("on trouve un user")
