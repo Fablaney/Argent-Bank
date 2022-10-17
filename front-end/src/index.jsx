@@ -19,8 +19,6 @@ import Error from './pages/Error'
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 
-
-
 /**
  * Router his job is send the good page whith the URL, or 404 if page not found
  */
@@ -29,28 +27,28 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <Provider store={store}>
 
-        <Router>
-            
-            <Header/>
+            <Router>
+                
+                <Header/>
 
-            <Routes>
+                <Routes>
 
-                <Route path="/" element={<Accueil />} />
+                    <Route path="/" element={<Accueil />} />
 
-                <Route path="/login" element={<Login />} />
+                    <Route path="/login" element={<Login />} />
 
-                <Route path="/profil" element={<Profil />} />
+                    <Route path="/profil" element={<Profil />} />
 
-                <Route path="/transactions" element={<Transactions />} />
+                    <Route path="/transactions" element={<Transactions />} />
 
-                {/* page d'erreur */}
-                <Route path="/*" element={<Error/>}/>
+                    {/* page d'erreur */}
+                    <Route path="/*" element={<Error/>}/>
 
-            </Routes>
+                </Routes>
 
-            <Footer/>
+                <Footer/>
 
-        </Router>
-        
+            </Router>
+
     </Provider>
 )
