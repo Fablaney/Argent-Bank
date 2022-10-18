@@ -4,8 +4,7 @@ import { Link } from "react-router-dom"
 
 // import perso
 import "./style.scss"
-
-// datas
+import TransactionWrapper from '../../components/TransactionWrapper'
 
 /**
  * Render of Transactions page
@@ -16,11 +15,13 @@ import "./style.scss"
 function Transactions()
 {
     return (
-        <div className="">
+        <main className="main bg-dark">
 
             <h1>Transactions</h1> 
 
-        </div>
+            <TransactionWrapper/>
+
+        </main>
     )
 }
 

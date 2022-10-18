@@ -39,7 +39,7 @@ root.render(
 
                     <Route path="/profil" element={<Profil />} />
 
-                    <Route path="/transactions" element={<Transactions />} />
+                    <Route path="/profil/transactions" element={<Transactions />} />
 
                     {/* page d'erreur */}
                     <Route path="/*" element={<Error/>}/>

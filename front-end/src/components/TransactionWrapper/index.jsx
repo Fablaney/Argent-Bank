@@ -15,7 +15,7 @@ function TransactionWrapper()
                     </div>  
 
                     <div className="account-content-wrapper cta">
-                        <Link className="main-nav-item" to="/transactions">
+                        <Link className="main-nav-item" to="/profil/transactions">
                             <button className="transaction-button">View transactions</button>
                         </Link>
                     </div>

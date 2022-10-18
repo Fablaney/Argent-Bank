@@ -39,10 +39,13 @@ function Login()
 
             // requete pour récuperer les données de l'utilisateur
             axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
-                // console.log(response.data)
-
+                // console.log(response.data.body)
+                
                 // on appelle la fonction "login" le l'user reducer
                 dispatch(userActions.login(response.data.body))
+                console.log(response.data.body)
+                sessionStorage.setItem("currentUser",JSON.stringify(response.data.body))
+                localStorage.setItem("currentUser", JSON.stringify(response.data.body))
 
                 console.log("on est connecté")
 

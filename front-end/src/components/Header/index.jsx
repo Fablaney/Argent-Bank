@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
 import { useEffect } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 
@@ -22,7 +23,7 @@ import { userActions } from "../../store/user"
 function Header()
 {
     const user = useSelector(state => state.user)
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const handleLogout = async (e) => {
@@ -32,23 +33,6 @@ function Header()
   
         console.log("on deconnecte et retour à la page d'accueil")
     }
-
-    // const {token} = useSelector(state => state.user)
-           
-    // console.log(token)
-
-    // useEffect(() => {
-
-    //     console.log("on entre dans le useeffect")
-
-    //     if (token)
-    //     {
-    //         console.log("on à un token")
-    //         navigate("/profil")
-    //     }
-
-    // }, [token, navigate])
-
 
     return (
         <header className='d-flex align-items-center'>

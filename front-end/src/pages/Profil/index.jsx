@@ -49,33 +49,13 @@ function Profil()
 
     },[token])
 
-    const [updateFirstName, setUpdateFirstName] = useState()
-    const [updateLastName, setUpdateLastName] = useState()
-
-    const newuser = (newFirstname, defaultFirstName, newLastName, defaultLastName) => {
-        if (newFirstname != defaultFirstName)
-        {
-            return newuser
-        }
-        if (newLastName != defaultLastName)
-        {
-            return newuser
-        }
-        if(newFirstname === defaultFirstName)
-        {
-            return defaultFirstName
-        }  
-        if(newFirstname === defaultFirstName)
-        {
-            return defaultFirstName
-        }
-    }
+    // je prépare les inputs firstname et lastname en leur mettant apr défaut la valeur actuelle
+    const [updateFirstName, setUpdateFirstName] = useState(user.firstName)
+    const [updateLastName, setUpdateLastName] = useState(user.lastName)
 
     // on recupere le form quand il est envoyé
     const updateSubmit = async (e) => {
         e.preventDefault()
-
-        newuser(updateFirstName, user.firstName, updateLastName, user.lastName)
 
         // requete post pour envoyer le mail et mdp
         axios.put("http://localhost:3001/api/v1/user/profile", {
@@ -117,8 +97,8 @@ function Profil()
                     </div>
                 )
                 :
+                // si on à cliqué sur edit pour modifier le nom et prenom de l'utilisateur
                 (
-                    // si on à cliqué sur edit pour modifier le nom et prenom de l'utilisateur
                     <div className="header-edit">
 
                         <form className="edit-user-form"
@@ -130,16 +110,16 @@ function Profil()
                                 <input
                                     type="text"
                                     name="firstName"
-                                    defaultValue={user.firstName}
-                                    placeholder={user.firstName}
+                                    value={updateFirstName}
+                                    placeholder={updateFirstName}
                                     onChange={e => setUpdateFirstName(e.target.value)}
                                 />
         
                                 <input
                                     type="text"
                                     name="lastName"
-                                    defaultValue={user.lastName}
-                                    placeholder={user.lastName}
+                                    value={updateLastName}
+                                    placeholder={updateLastName}
                                     onChange={e => setUpdateLastName(e.target.value)}
                                 />
         
