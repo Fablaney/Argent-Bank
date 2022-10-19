@@ -17,8 +17,10 @@ function Transactions()
     return (
         <main className="main bg-dark">
 
-            <h1>Transactions</h1> 
-
+            <div className='header'>
+                <h1>Transactions</h1>
+            </div>
+            
             <TransactionWrapper/>
 
         </main>
