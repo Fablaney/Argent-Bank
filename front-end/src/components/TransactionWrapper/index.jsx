@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import {transactions_data } from "../../api/data_mock"
+import { NavLink } from "react-router-dom"
 
 function TransactionWrapper()
 {
@@ -15,9 +16,9 @@ function TransactionWrapper()
                     </div>  
 
                     <div className="account-content-wrapper cta">
-                        <Link className="main-nav-item" to="/profil/transactions">
+                        <NavLink className="main-nav-item" to="/profil/transactions" title={item.title} count={item.count} text={item.text}>
                             <button className="transaction-button">View transactions</button>
-                        </Link>
+                        </NavLink>
                     </div>
 
                 </section>

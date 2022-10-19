@@ -1,10 +1,8 @@
 // import react
 import React from 'react'
-import { Link } from "react-router-dom"
 
 // import perso
 import "./style.scss"
-import TransactionWrapper from '../../components/TransactionWrapper'
 
 /**
  * Render of Transactions page
@@ -12,17 +10,20 @@ import TransactionWrapper from '../../components/TransactionWrapper'
  * @param {*}
  * @returns {jsx}
  */
-function Transactions()
+function Transactions({title, count, text})
 {
     return (
         <main className="main bg-dark">
 
             <div className='header'>
-                <h1>Transactions</h1>
+
+                <p>{title}</p>
+                <h1>{count}</h1>
+                <p>{text}</p>
+
             </div>
             
-            <TransactionWrapper/>
-
+    
         </main>
     )
 }
