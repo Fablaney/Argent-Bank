@@ -1,8 +1,8 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useStore } from "react-redux"
-
+import { useSelector } from "react-redux"
 import axios from "axios"
 
 // import perso
@@ -43,8 +43,8 @@ function Login()
                 
                 // on appelle la fonction "login" le l'user reducer
                 dispatch(userActions.login(response.data.body))
-                console.log(response.data.body)
-                sessionStorage.setItem("currentUser",JSON.stringify(response.data.body))
+                // console.log(response.data.body)
+                // sessionStorage.setItem("currentUser",JSON.stringify(response.data.body))
                 localStorage.setItem("currentUser", JSON.stringify(response.data.body))
 
                 console.log("on est connecté")
@@ -54,6 +54,19 @@ function Login()
             })
         })
     }
+
+    const user = useSelector(state => state.user)
+    
+    useEffect(() => {
+        
+        console.log(user.isLogged)
+
+        if(user.isLogged == true)
+        {
+            navigate("/profil")
+        }
+    },[])
+   
 
     return (
         <main className="main bg-dark login">

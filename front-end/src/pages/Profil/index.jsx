@@ -38,14 +38,14 @@ function Profil()
             navigate("/login")
         }
 
-        if(token)
-        {
-            axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
+        // if(token)
+        // {
+        //     axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
 
-                // on appelle la fonction "login" le l'user reducer
-                dispatch(userActions.login(response.data.body))
-            })
-        }
+        //         // on appelle la fonction "login" le l'user reducer
+        //         dispatch(userActions.login(response.data.body))
+        //     })
+        // }
 
     },[token])
 

@@ -6,7 +6,7 @@ import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
 import { useEffect } from "react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-
+import axios from "axios"
 
 // import perso
 import logo from "../../designs/img/argentBankLogo.png"
@@ -33,6 +33,27 @@ function Header()
   
         console.log("on deconnecte et retour à la page d'accueil")
     }
+
+    useEffect(() => {
+        let token = localStorage.getItem("userToken")
+
+        // console.log(token)
+
+        if(token)
+        {
+            // modifie les autorisations avec le token
+            axios.defaults.headers["Authorization"] = `Bearer ${token}`
+
+            // requete pour récuperer les données de l'utilisateur si il est déja connecté
+            axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
+                // console.log(response.data.body)
+                
+                // on appelle la fonction "login" le l'user reducer
+                dispatch(userActions.login(response.data.body))
+            })
+        }
+
+    },[])
 
     return (
         <header className='d-flex align-items-center'>
