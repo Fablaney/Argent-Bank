@@ -17,9 +17,7 @@ function Transactions({title, count, text})
 
             <div className='header'>
 
-                <p>{title}</p>
-                <h1>{count}</h1>
-                <p>{text}</p>
+                <h1>Transactions</h1>
 
             </div>
             

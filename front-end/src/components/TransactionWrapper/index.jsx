@@ -16,7 +16,7 @@ function TransactionWrapper()
                     </div>  
 
                     <div className="account-content-wrapper cta">
-                        <NavLink className="main-nav-item" to="/profil/transactions" title={item.title} count={item.count} text={item.text}>
+                        <NavLink className="main-nav-item" to="/profil/transactions">
                             <button className="transaction-button">View transactions</button>
                         </NavLink>
                     </div>
