@@ -28,25 +28,19 @@ function Login()
             // l'api attend un email et un password on lui passe ceux des champs du formulaire
             email: userEmail, password: userPassword
         }).then(response => {
-            // console.log(response.data)
 
             // modifie les autorisations avec le token
             axios.defaults.headers["Authorization"] = `Bearer ${response.data.body.token}`
 
             // on met le token en localstorage
-            // localStorage.token = response.data.body.token
             localStorage.setItem("userToken", response.data.body.token)                
 
             // requete pour récuperer les données de l'utilisateur
             axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
-                // console.log(response.data.body)
-                
+
                 // on appelle la fonction "login" le l'user reducer
                 dispatch(userActions.login(response.data.body))
-                // console.log(response.data.body)
-                // sessionStorage.setItem("currentUser",JSON.stringify(response.data.body))
-                // localStorage.setItem("currentUser", JSON.stringify(response.data.body))
-
+          
                 console.log("on est connecté")
 
                 // on redirige sur la page profil
