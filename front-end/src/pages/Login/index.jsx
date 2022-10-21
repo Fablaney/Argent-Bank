@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch, useStore } from "react-redux"
+import { useDispatch} from "react-redux"
 import { useSelector } from "react-redux"
 import axios from "axios"
 
@@ -28,7 +28,6 @@ function Login()
             // l'api attend un email et un password on lui passe ceux des champs du formulaire
             email: userEmail, password: userPassword
         }).then(response => {
-
             // modifie les autorisations avec le token
             axios.defaults.headers["Authorization"] = `Bearer ${response.data.body.token}`
 
@@ -40,8 +39,6 @@ function Login()
 
                 // on appelle la fonction "login" le l'user reducer
                 dispatch(userActions.login(response.data.body))
-          
-                console.log("on est connecté")
 
                 // on redirige sur la page profil
                 navigate("/profil")
@@ -50,17 +47,16 @@ function Login()
     }
 
     const user = useSelector(state => state.user)
-    
-    useEffect(() => {
-        
-        console.log(user.isLogged)
 
+    useEffect(() => {
+
+        // si on à un user loggé on ne reste pas sur login et on est redirigé sur profil
         if(user.isLogged == true)
         {
             navigate("/profil")
         }
-    },[])
-   
+
+    },[user])
 
     return (
         <main className="main bg-dark login">

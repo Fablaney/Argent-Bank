@@ -4,8 +4,6 @@ import { NavLink } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
 import { useEffect } from "react"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
 // import perso
@@ -23,21 +21,21 @@ import { userActions } from "../../store/user"
 function Header()
 {
     const user = useSelector(state => state.user)
-    // const navigate = useNavigate()
+
     const dispatch = useDispatch()
 
-    const handleLogout = async (e) => {
+    // fonction logout
+    const handleLogout = () => {
 
         // On appelle la fonction du reducer "logout" qui passera les données user à null
         dispatch(userActions.logout())
-  
-        console.log("on deconnecte et retour à la page d'accueil")
+
     }
 
+    // use effect, on vérifie si il y à un token et on récupere les données de l'utilisateur on refresh le store avec
     useEffect(() => {
-        let token = localStorage.getItem("userToken")
 
-        // console.log(token)
+        let token = localStorage.getItem("userToken")
 
         if(token)
         {
@@ -46,8 +44,7 @@ function Header()
 
             // requete pour récuperer les données de l'utilisateur si il est déja connecté
             axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
-                // console.log(response.data.body)
-                
+   
                 // on appelle la fonction "login" le l'user reducer
                 dispatch(userActions.login(response.data.body))
             })

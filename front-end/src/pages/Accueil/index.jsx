@@ -3,6 +3,7 @@ import React from 'react'
 
 // import perso
 import "./style.scss"
+
 // import des features mockées
 import SectionFeatures from '../../components/Sectionfeatures'
 

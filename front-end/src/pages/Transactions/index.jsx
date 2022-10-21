@@ -10,7 +10,7 @@ import "./style.scss"
  * @param {*}
  * @returns {jsx}
  */
-function Transactions({title, count, text})
+function Transactions()
 {
     return (
         <main className="main bg-dark">

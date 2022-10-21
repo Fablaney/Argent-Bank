@@ -1,5 +1,5 @@
 // import react
-import React from 'react'
+import React, { Suspense } from 'react'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
@@ -20,13 +20,16 @@ import { userActions } from '../../store/user'
  */
 function Profil()
 {
+    // recup des données de l'user
+    const user = useSelector(state => state.user)
+
+    // initialisation de navigate et dispatch
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const user = useSelector(state => state.user)
-
     let token = localStorage.getItem("userToken")
 
+    // si il n'y à pas de token = pas d'user => on redirige verse la page login
     useEffect(() => {
 
         if (token == null)
@@ -36,7 +39,7 @@ function Profil()
 
     },[token])
 
-    // je prépare les inputs firstname et lastname en leur mettant apr défaut la valeur actuelle
+    // je prépare les inputs firstname et lastname en leur mettant par défaut la valeur actuelle
     const [updateFirstName, setUpdateFirstName] = useState(user.firstName)
     const [updateLastName, setUpdateLastName] = useState(user.lastName)
 
@@ -50,9 +53,8 @@ function Profil()
             firstName: updateFirstName, lastName: updateLastName
 
         }).then(response => {
-            // console.log(response.data)
 
-            // on appelle la fonction "updateUser" le l'user reducer
+            // on appelle la fonction "updateUser" le l'user reducer qui change le nom / prenom / isEdit = false
             dispatch(userActions.updateUser(response.data.body))
         })
     }
@@ -68,9 +70,11 @@ function Profil()
 
                         <h1>
                             Welcome back
+
                             <br/>
-                            
+              
                             {user.firstName} {user.lastName}
+                        
                         </h1>
         
                         <button className="edit-button" onClick={() => dispatch(userActions.isEdit())}>Edit Name</button>
