@@ -28,24 +28,11 @@ function Profil()
     let token = localStorage.getItem("userToken")
 
     useEffect(() => {
-        // si on à pas d'utilisateur on redirige sur login
-        // if (user.id == null)
-        // {
-        //     navigate("/login")
-        // }
+
         if (token == null)
         {
             navigate("/login")
         }
-
-        // if(token)
-        // {
-        //     axios.post("http://localhost:3001/api/v1/user/profile").then(response => {
-
-        //         // on appelle la fonction "login" le l'user reducer
-        //         dispatch(userActions.login(response.data.body))
-        //     })
-        // }
 
     },[token])
 
@@ -64,12 +51,6 @@ function Profil()
 
         }).then(response => {
             // console.log(response.data)
-
-            // modifie les autorisations avec le token
-            axios.defaults.headers["Authorization"] = `Bearer ${response.data.body.token}`
-
-            // on met le token en localstorage
-            localStorage.token = response.data.body.token
 
             // on appelle la fonction "updateUser" le l'user reducer
             dispatch(userActions.updateUser(response.data.body))

@@ -45,7 +45,7 @@ function Login()
                 dispatch(userActions.login(response.data.body))
                 // console.log(response.data.body)
                 // sessionStorage.setItem("currentUser",JSON.stringify(response.data.body))
-                localStorage.setItem("currentUser", JSON.stringify(response.data.body))
+                // localStorage.setItem("currentUser", JSON.stringify(response.data.body))
 
                 console.log("on est connecté")
 
