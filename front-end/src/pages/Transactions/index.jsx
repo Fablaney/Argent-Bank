@@ -20,8 +20,7 @@ function Transactions()
                 <h1>Transactions</h1>
 
             </div>
-            
-    
+
         </main>
     )
 }
